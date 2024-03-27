@@ -16,3 +16,6 @@ The Mine Cars Dealership System is a Java-based application designed to simulate
 - Security: Ensures user data protection and system integrity through careful handling of sensitive information.
 
 
+-Sofia was here
+
+
