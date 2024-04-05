@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.io.File;
+import java.util.Scanner;
+
 /**
  * Name(s): Jenna Murphree, Sofia Martinez, Nara Macias
  * Date: March 27, 2024
@@ -9,7 +14,61 @@
  */
 
  public class RunShop {
+
+    /** 
+     *method to read a file and assign each line of text as a string element in order to an ArrayList
+     * @param fileLocation String value of the file location in reference to the current folder or the exact location
+     * @return ArrayList<String> of String lines of the text file in order
+     */
+    public static ArrayList<String> readFile(String fileLocation) {
+        ArrayList<String> fileLines = new ArrayList<String>();
+		// create new File
+        File file = new File(fileLocation);
+		try{
+            //create new Scanner
+			Scanner fileScanner = new Scanner(file);
+            //iterate through the whole file
+			while(fileScanner.hasNextLine()){
+                //add each line to the fileLines ArrayList
+				fileLines.add(fileScanner.nextLine());
+			}
+            //close scanner
+            fileScanner.close();
+		}
+		catch(Exception e){
+			//adjust the exception here later to not end the program
+			e.printStackTrace();
+		}
+        //return fileLines ArrayList
+		return fileLines;
+    }
+
+     /** 
+     *method to set up the shop with all the car and user values in the appropriate structures.
+     * Has no inputs or outputs.
+     */
+    public static void initializeShop(){
+		/*call readFile() to get each line of the csv text as a string that can be handled later in the method,
+		 to create the appropriate Objects*/
+        ArrayList<String> cars = readFile("car_data.csv");
+        ArrayList<String> users = readFile("user_data.csv");
+		//itterate through the ArrayList with the forEach command and add a new car from the String of information
+		cars.forEach(carInfo -> carsArray.add(new Car(carInfo)));
+		//itterate through the ArrayList with the forEach command and put a new user in the Dictionary from the String of information
+		//later replace the "Dictionary Key" value with the username of User
+		//userInfo.split(",")[6] to use the userInfo values as arrays 
+		//and access the peice of information individually
+		users.forEach(userInfo -> userDictionary.put("Dictionary Key", new User(userInfo)));
+    }
+	/** ArrayList structure to store cars when shop is running*/
+    public static ArrayList<Car> carsArray;
+
+    /** Dictionary structure to store users when shop is running*/
+	public static Dictionary<String, User>  userDictionary;
+
     public static void main(String[] args) {
+		//initialize the cars and users values
+        initializeShop();
         // Display a welcome message
         System.out.println("Welcome to Mine Cars Dealership System!");
         
@@ -58,5 +117,4 @@
         // This may include asking for username/password, validating credentials, etc.
     }
     
-
 }
