@@ -50,8 +50,8 @@ import java.util.Scanner;
     public static void initializeShop(){
 		/*call readFile() to get each line of the csv text as a string that can be handled later in the method,
 		 to create the appropriate Objects*/
-        ArrayList<String> cars = readFile("car_data.csv");
-        ArrayList<String> users = readFile("user_data.csv");
+        ArrayList<String> cars = readFile("car_data");
+        ArrayList<String> users = readFile("user_data");
 		//itterate through the ArrayList with the forEach command and add a new car from the String of information
 		cars.forEach(carInfo -> carsArray.add(new Car(carInfo)));
 		//itterate through the ArrayList with the forEach command and put a new user in the Dictionary from the String of information
@@ -61,7 +61,7 @@ import java.util.Scanner;
 		users.forEach(userInfo -> userDictionary.put("Dictionary Key", new User(userInfo)));
     }
 	/** ArrayList structure to store cars when shop is running*/
-    public static ArrayList<Car> carsArray;
+    public static ArrayList<Car> carsArray = new ArrayList<Car>();
 
     /** Dictionary structure to store users when shop is running*/
 	public static Dictionary<String, User>  userDictionary;
@@ -77,7 +77,7 @@ import java.util.Scanner;
         
         // TODO: Implement the menu-driven system here
         boolean running = true;
-        while (running) {
+        while (!running) {
             // Display the main menu options
             System.out.println("1. Login");
             System.out.println("2. Exit");

@@ -25,6 +25,9 @@ public class User {
         this.budget = budget;
     }
 
+    
+    //userInformation.split(",")[*] to use the userInfo values as arrays 
+    //or temp = userInformation.split(","); temp[*]
     public User(String userInformationIn){
         
     }
