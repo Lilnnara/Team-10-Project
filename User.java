@@ -25,6 +25,10 @@ public class User {
         this.budget = budget;
     }
 
+    public User(String userInformationIn){
+        
+    }
+
     /**
      * Gets the username of the user.
      * 

@@ -1,4 +1,5 @@
 public class Log {
+    //attributes
     private String timestamp; 
     private String eventDescription; 
     private String Username;
