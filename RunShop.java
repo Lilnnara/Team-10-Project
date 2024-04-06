@@ -27,6 +27,8 @@ import java.util.Scanner;
 		try{
             //create new Scanner
 			Scanner fileScanner = new Scanner(file);
+            //scan first line with the headers and discard
+            fileScanner.nextLine();
             //iterate through the whole file
 			while(fileScanner.hasNextLine()){
                 //add each line to the fileLines ArrayList
