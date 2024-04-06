@@ -78,4 +78,8 @@ class User extends Person {
         this.password = password;
     }
 
+
+    public String toString(){
+        return "hi";
+    }
 }
