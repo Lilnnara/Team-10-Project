@@ -61,7 +61,8 @@ import java.util.Scanner;
 		//later replace the "Dictionary Key" value with the username of User
 		//userInfo.split(",")[6] to use the userInfo values as arrays 
 		//and access the peice of information individually
-		users.forEach(userInfo -> userDictionary.put("Dictionary Key", new User(userInfo)));
+		users.forEach(userInfo -> userDictionary.put(userInfo.split(",")[6], new User(userInfo)));
+        System.out.println(userDictionary.get("hermionegranger"));
     }
 	/** ArrayList structure to store cars when shop is running*/
     public static ArrayList<Car> carsArray = new ArrayList<Car>();
