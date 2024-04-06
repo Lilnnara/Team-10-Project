@@ -1,5 +1,3 @@
-import java.lang.Number;
-
 class User extends Person {
     // Attributes specific to User
     private int id;

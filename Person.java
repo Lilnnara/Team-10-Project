@@ -3,7 +3,7 @@ public abstract class Person {
     protected String firstName;
     protected String lastName;
 
-    // Constructor
+    // Constructors
     public Person(){}
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
