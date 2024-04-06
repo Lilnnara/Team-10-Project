@@ -2,91 +2,115 @@
  * Represents a user of the Mine Cars dealership system. Users can view, filter, and purchase cars.
  * This class includes methods for user authentication, displaying cars, and handling car purchases.
  * 
- * @author  Nara Macias, Jenna Murphree, Sofia Martinez
+ * @author Nara Macias, Jenna Murphree, Sofia Martinez
  * @version 1.0
  * @since 2024-03-29
  */
 public class User {
     // User attributes
+    private int id;
+    private String firstName;
+    private String lastName;
+    private double moneyAvailable;
+    private int carsPurchased;
+    private boolean minecarsMembership;
     private String username;
-    private String password; // Consider using a more secure way to store passwords
-    private double budget; // User's budget for buying cars
+    private String password;
 
-    /**
-     * Constructor to create a new User with the specified username, password, and budget.
-     * 
-     * @param username The user's username.
-     * @param password The user's password.
-     * @param budget The user's budget for purchasing cars.
-     */
-    public User(String username, String password, double budget) {
+    // Constructor
+    public User(int id, String firstName, String lastName, double moneyAvailable, int carsPurchased, boolean minecarsMembership, String username, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.moneyAvailable = moneyAvailable;
+        this.carsPurchased = carsPurchased;
+        this.minecarsMembership = minecarsMembership;
         this.username = username;
         this.password = password;
-        this.budget = budget;
     }
 
-    
-    //userInformation.split(",")[*] to use the userInfo values as arrays 
-    //or temp = userInformation.split(","); temp[*]
-    public User(String userInformationIn){
-        
+    // Getters and setters for each attribute
+    public int getId() {
+        return id;
     }
 
-    /**
-     * Gets the username of the user.
-     * 
-     * @return A string representing the user's username.
-     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public double getMoneyAvailable() {
+        return moneyAvailable;
+    }
+
+    public void setMoneyAvailable(double moneyAvailable) {
+        this.moneyAvailable = moneyAvailable;
+    }
+
+    public int getCarsPurchased() {
+        return carsPurchased;
+    }
+
+    public void setCarsPurchased(int carsPurchased) {
+        this.carsPurchased = carsPurchased;
+    }
+
+    public boolean isMinecarsMembership() {
+        return minecarsMembership;
+    }
+
+    public void setMinecarsMembership(boolean minecarsMembership) {
+        this.minecarsMembership = minecarsMembership;
+    }
+
     public String getUsername() {
         return username;
     }
 
-    /**
-     * Sets the user's username.
-     * 
-     * @param username The new username for the user.
-     */
-    public void setUsername(String username) {
-        this.username = username;
+    // Username and password setters are already provided in your code
+
+    public String getPassword() {
+        return password;
     }
 
-    /**
-     * Gets the user's budget.
-     * 
-     * @return The user's budget.
-     */
-    public double getBudget() {
-        return budget;
+    // Method to update money available based on addition or subtraction
+    public void updateMoneyAvailable(boolean isAddition, double amount) {
+        if (isAddition) {
+            this.moneyAvailable += amount;
+        } else {
+            this.moneyAvailable -= amount;
+        }
     }
 
-    /**
-     * Sets the user's budget.
-     * 
-     * @param budget The new budget for the user.
-     */
-    public void setBudget(double budget) {
-        this.budget = budget;
+    // toString method to return user information as a String
+    @Override
+    public String toString() {
+        return "User{" +
+               "id=" + id +
+               ", firstName='" + firstName + '\'' +
+               ", lastName='" + lastName + '\'' +
+               ", moneyAvailable=" + moneyAvailable +
+               ", carsPurchased=" + carsPurchased +
+               ", minecarsMembership=" + minecarsMembership +
+               ", username='" + username + '\'' +
+               ", password='" + password + '\'' +
+               '}';
     }
 
-    /**
-     * Method to simulate user login. This should be replaced or updated with real authentication logic.
-     * 
-     * @param username The username entered by the user.
-     * @param password The password entered by the user.
-     * @return true if the login is successful, false otherwise.
-     */
-    public boolean login(String username, String password) {
-        // Dummy logic for login, replace with actual authentication logic
-        return this.username.equals(username) && this.password.equals(password);
-    }
-
-    /**
-     * Displays information about the user, including username and budget.
-     */
-    public void displayUserInfo() {
-        System.out.println("Username: " + username);
-        System.out.println("Budget: $" + budget);
-    }
-
-    // Add additional methods for user functionalities such as viewing cars, filtering cars, purchasing cars, etc.
+    // Existing methods from the starter code can remain unchanged
 }
