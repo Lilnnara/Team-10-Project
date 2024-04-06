@@ -18,6 +18,14 @@ class User extends Person {
         this.password = password;
     }
 
+    //userInformation.split(",")[*] to use the userInfo values as arrays 
+    //or temp = userInformation.split(","); temp[*]
+    public User(String userInformationIn){
+        super("hi", "test");
+        return;
+    }
+
+
     // Getters and setters for User attributes
     public int getId() {
         return id;

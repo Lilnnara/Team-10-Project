@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Hashtable;
 import java.io.File;
 import java.util.Scanner;
 
@@ -66,7 +67,7 @@ import java.util.Scanner;
     public static ArrayList<Car> carsArray = new ArrayList<Car>();
 
     /** Dictionary structure to store users when shop is running*/
-	public static Dictionary<String, User>  userDictionary;
+	public static Dictionary<String, User>  userDictionary = new Hashtable<String,User>();
 
     public static void main(String[] args) {
 		//initialize the cars and users values
