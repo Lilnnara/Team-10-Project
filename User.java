@@ -1,27 +1,16 @@
-/**
- * Represents a user of the Mine Cars dealership system. Users can view, filter, and purchase cars.
- * This class includes methods for user authentication, displaying cars, and handling car purchases.
- * 
- * @author Nara Macias, Jenna Murphree, Sofia Martinez
- * @version 1.0
- * @since 2024-03-29
- */
-public class User {
-    // User attributes
+class User extends Person {
+    // Attributes specific to User
     private int id;
-    private String firstName;
-    private String lastName;
     private double moneyAvailable;
     private int carsPurchased;
     private boolean minecarsMembership;
     private String username;
     private String password;
 
-    // Constructor
+    // Constructor for User
     public User(int id, String firstName, String lastName, double moneyAvailable, int carsPurchased, boolean minecarsMembership, String username, String password) {
+        super(firstName, lastName); // Call to the superclass (Person) constructor
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.moneyAvailable = moneyAvailable;
         this.carsPurchased = carsPurchased;
         this.minecarsMembership = minecarsMembership;
@@ -29,29 +18,13 @@ public class User {
         this.password = password;
     }
 
-    // Getters and setters for each attribute
+    // Getters and setters for User attributes
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public double getMoneyAvailable() {
@@ -78,39 +51,23 @@ public class User {
         this.minecarsMembership = minecarsMembership;
     }
 
+  
     public String getUsername() {
         return username;
     }
 
-    // Username and password setters are already provided in your code
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+  
     public String getPassword() {
         return password;
     }
 
-    // Method to update money available based on addition or subtraction
-    public void updateMoneyAvailable(boolean isAddition, double amount) {
-        if (isAddition) {
-            this.moneyAvailable += amount;
-        } else {
-            this.moneyAvailable -= amount;
-        }
+  
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    // toString method to return user information as a String
-    @Override
-    public String toString() {
-        return "User{" +
-               "id=" + id +
-               ", firstName='" + firstName + '\'' +
-               ", lastName='" + lastName + '\'' +
-               ", moneyAvailable=" + moneyAvailable +
-               ", carsPurchased=" + carsPurchased +
-               ", minecarsMembership=" + minecarsMembership +
-               ", username='" + username + '\'' +
-               ", password='" + password + '\'' +
-               '}';
-    }
-
-    // Existing methods from the starter code can remain unchanged
 }
