@@ -1,5 +1,3 @@
-import java.lang.Number;
-
 public class Car {
     private String id;
     private String carType;

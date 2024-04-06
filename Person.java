@@ -3,26 +3,27 @@ public abstract class Person {
     protected String firstName;
     protected String lastName;
 
-    // Constructor
+    // Constructors
+    public Person(){}
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     // Getters and Setters
-    public abstract String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public abstract void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public abstract String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public abstract void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 }
