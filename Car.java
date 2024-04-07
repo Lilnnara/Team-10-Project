@@ -12,6 +12,8 @@ public class Car {
     private double price;
     private int carsAvailable;
 
+    //Constructors
+    public Car(){}
     //carInformation.split(",")[*] to use the userInfo values as arrays 
     //or temp = carInformation.split(","); temp[*]
     public Car(String carInformationIn){
