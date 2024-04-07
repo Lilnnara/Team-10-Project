@@ -282,9 +282,9 @@ import java.util.Scanner;
     private static void adminPortal(Admin admin){
         ArrayList<Car> testCarsArray = new ArrayList<Car>();
         testCarsArray.add(new Sedan("1","Sedan","Toyota Camry","New","Silver",5,3067,"Diesel","Automatic","61J7MKYN8AUG05XV3",20688.35,0));
-        testCarsArray.add(new SUV("2","SUV","Toyota RAV4","Old","Green",5,2903,"Gasoline","Automatic","FVCRJHUHZCEX8LCDC",33050.65,0));
+        testCarsArray.add(new SUV("2","SUV","Toyota RAV4","Used","Green",5,2903,"Gasoline","Automatic","FVCRJHUHZCEX8LCDC",33050.65,0));
         testCarsArray.add(new Hatchback("3","Hatchback","Honda Fit","New","Yellow",5,3055,"Hybrid","Automatic","YNA6L2L65Z33P6C4O",23471.55,3));
-        testCarsArray.add(new Pickup("4","Pickup","Ford F-150","Old","Black",5,339,"Gasoline","Automatic","9OV4OJ6SREVR4V2ZQ",21687.59,10));
+        testCarsArray.add(new Pickup("4","Pickup","Ford F-150","Used","Black",5,339,"Gasoline","Automatic","9OV4OJ6SREVR4V2ZQ",21687.59,10));
 
         //Dictionary<String,User> testUserDictionary = new Hashtable<String,User>();
         ArrayList<String> testTicketsList = new ArrayList<String>();
@@ -358,26 +358,47 @@ import java.util.Scanner;
     
     /**
      * Takes ArrayList input and asks the user how they would like it filtered and then 
-     * filters the cars by the CarType provided then prints the results.
+     * filters the cars by the condition provided then prints the results.
      * @param ArrayList<Car> the ArrayList you want to filter.
      */
     public static void filterCars(ArrayList<Car> carsArrayList){
-        System.out.println("\t How would you like to filter?");
+        System.out.println("\t How would you like to filter the cars?");
         System.out.println("\t 1) Show New Cars");
         System.out.println("\t 2) Show Used Cars");
-        int filterType = readUserChoice();
-        switch (filterType) {
-            case 1:
-                ;
-                break;
-            case 2:
-                ;
-                break;
-            default:
-                System.out.print("\tPlease enter a valid response.\n");    
-                break;
+        System.out.println("\t 3) Go back");
+        //boolean for if the user inputs an invalid input and the options need to run again
+        boolean runAgain = true;
+        String condition = "";
+        while(runAgain){
+            runAgain = false;
+            int filterType = readUserChoice();
+            switch (filterType) {
+                case 1:
+
+                    System.out.println("\tHere are all the New Cars in our System:");
+                    condition = "New";
+                    break;
+                case 2:
+                    System.out.println("\tHere are all the Used Cars in our System:");
+                    condition = "Used";
+                    break;
+                case 3:
+                    //send them to the previous menu by ending the method with a return;
+                    System.out.println("\tRedirecting you to the previous menu.");
+                    return;
+                default:
+                    System.out.println("\tPlease enter a valid response.");
+                    //assign true so the while loop loops again.
+                    runAgain = true;
+                    break;
+            }
         }
-        System.out.println("filterCars");
+        //once you have the carType the user wants, go through a for loop of the carsArrayList and print the Cars that qualify
+        for(int i = 0; i < carsArrayList.size(); i++){
+            if(carsArrayList.get(i).getCondition().equalsIgnoreCase(condition)){
+                System.out.println("\t\t" + carsArrayList.get(i));
+            }
+        }
     }
 
     /**
