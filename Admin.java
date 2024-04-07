@@ -30,4 +30,11 @@ public class Admin extends Person {
         this.password = password;
     }
 
+    /**
+     * method to generate a clean String value for Admin for printing and comparisons.
+     * @return String value of User object 
+     */
+    public String toString(){
+        return firstName+","+lastName+","+username+","+password;
+    }
 }
