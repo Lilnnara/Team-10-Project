@@ -16,6 +16,52 @@ import java.util.Scanner;
 
  public class RunShop {
 
+    /** ArrayList structure to store cars when shop is running*/
+    public static ArrayList<Car> carsArray = new ArrayList<Car>();
+
+    /** Dictionary structure to store users when shop is running*/
+    public static Dictionary<String, User>  userDictionary = new Hashtable<String,User>();
+
+
+    /**
+     * Program main method.
+     * @param args
+     */
+    public static void main(String[] args) {
+		//initialize the cars and users values
+        initializeShop();
+        // Display a welcome message
+        System.out.println("Welcome to Mine Cars Dealership System!");
+        //Prompt user to select to login as an Admin or User
+        boolean running = true;
+        while(running){
+            System.out.println("Would you like to login as: \n 1) Admin \n 2) User \n 3) Exit Program");
+            int input = readUserChoice();
+            switch (input) {
+                case 1:
+                    //Handle admin login with the login(true) method which calls adminLogin. (typecast to Admin to use in adminPortal) Returns null if login unsuccessful.
+                    Admin admin = (Admin)login(true);
+                    adminPortal(admin);
+                    break;
+                case 2:
+                    //Handle user login with the login(false) method which calls userLogin. (typecast to User to use in userPortal) Returns null if login unsuccessful.
+                    User user = (User)login(false);
+                    userPortal(user);
+                    break;
+                case 3:
+                    // Exit the program by changing the running value to false
+                    running = false;
+                    break;
+                default:
+                    // Handle invalid options
+                    System.out.print("Please enter a valid response.\n");
+                    break;
+            }
+        }
+        updateData();
+        System.out.println("Thank you for using Mine Cars Dealership System. Have a good day!");
+    }
+    
     /** 
      *method to read a file and assign each line of text as a string element in order to an ArrayList
      * @param fileLocation String value of the file location in reference to the current folder or the exact location
@@ -88,125 +134,9 @@ import java.util.Scanner;
             userDictionary.put(tempUsername, new User(Integer.parseInt(temp[0]), temp[1], temp[2], Double.parseDouble(temp[3]), Integer.parseInt(temp[4]), Boolean.parseBoolean(temp[5]), temp[6], temp[7]));
         }
     }
-	/** ArrayList structure to store cars when shop is running*/
-    public static ArrayList<Car> carsArray = new ArrayList<Car>();
-
-    /** Dictionary structure to store users when shop is running*/
-	public static Dictionary<String, User>  userDictionary = new Hashtable<String,User>();
-
-    public static void main(String[] args) {
-		//initialize the cars and users values
-        initializeShop();
-        // Display a welcome message
-        System.out.println("Welcome to Mine Cars Dealership System!");
-        //Prompt user to select to login as an Admin or User
-        boolean running = true;
-        while(running){
-            System.out.println("Would you like to login as: \n 1) Admin \n 2) User \n 3) Exit Program");
-            int input = readUserChoice();
-            switch (input) {
-                case 1:
-                    //Handle admin login with the login(true) method which calls adminLogin. (typecast to Admin to use in adminPortal) Returns null if login unsuccessful.
-                    Admin admin = (Admin)login(true);
-                    adminPortal(admin);
-                    break;
-                case 2:
-                    //Handle user login with the login(false) method which calls userLogin. (typecast to User to use in userPortal) Returns null if login unsuccessful.
-                    User user = (User)login(false);
-                    userPortal(user);
-                    break;
-                case 3:
-                    // Exit the program by changing the running value to false
-                    running = false;
-                    break;
-                default:
-                    // Handle invalid options
-                    System.out.print("Please enter a valid response.\n");
-                    break;
-            }
-        }
-        System.out.println("Thank you for using Mine Cars Dealership System. Have a good day!");
-    }
-    
+	
     /**
-     * Portal for User controls. 
-     * @param admin Person object of the user 
-     */
-    private static void userPortal(User user){
-        if(user == null){
-            System.out.println("You do not have access to the user account.  The username or password may be incorrect.");
-            return;
-        }
-        boolean running = true;
-        while(running){
-            System.out.println("Hello "+ user.getFirstName() + " " + user.getLastName() +", what would you like to do today?");
-            System.out.println(" 1) ");
-            System.out.println(" 2) ");
-            System.out.println(" 3) ");
-            System.out.println(" 4) ");
-            System.out.println(" 5) Sign out");
-            int input = readUserChoice();
-            switch (input) {
-                case 1:
-                    
-                    break;
-                case 2:
-                    
-                    break;
-                case 5:
-                    // Exit the program by changing the running value to false
-                    running = false;
-                    break;
-                default:
-                    // Handle invalid options
-                    System.out.print("Please enter a valid response.\n");
-                    break;
-            }
-        }
-    }
-    
-
-    /**
-     * Portal for Admin controls.  Currently allows Admin to test various code functionalities.
-     * @param admin Person object of the admin 
-     */
-    private static void adminPortal(Admin admin){
-        if(admin == null){
-            System.out.println("You do not have access to the admin portal.");
-            return;
-        }
-        boolean running = true;
-        while(running){
-            System.out.println("Welcome to the Admin Portal, what would you like to test today?");
-            System.out.println(" 1) testCarsStringsAndConstructors(ArrayList<String> cars, ArrayList<Car> carsArray)");
-            System.out.println(" 2) testUsersStringsAndConstructors(ArrayList<String> users, Dictionary<String,User> userDictionary)");
-            //System.out.println(" #) ");
-            System.out.println(" -1) Sign out");
-            int input = readUserChoice();
-            switch (input) {
-                case 1:
-                    TestCases.testCarsStringsAndConstructors(readFile("car_data"), carsArray);
-                    break;
-                case 2:
-                    TestCases.testUsersStringsAndConstructors(readFile("user_data"), userDictionary);
-                    break;
-                // case #:
-                    
-                //     break;
-                case -1:
-                    // Exit the program by changing the running value to false
-                    running = false;
-                    break;
-                default:
-                    // Handle invalid options
-                    System.out.print("Please enter a valid response.\n");
-                    break;
-            }
-        }
-    }
-
-    /**
-     *  Method to read user's integer choice from console 
+     * Method to read user's integer choice from console 
      * @return integer value of user input or default -1 value for non integer inputs
      */
     private static int readUserChoice() {
@@ -227,46 +157,6 @@ import java.util.Scanner;
         return choice; // return choice, integer value of user input or default -1 value for non integer inputs
     }
     
-    /** 
-     * Method to handle Admin login.
-     * @param usernameIn provided username
-     * @param passwordIn provided login
-     * @return Returns the object for the specific Admin when login is successful, returns null if not.
-    */
-    private static Admin adminLogin(String usernameIn, String passwordIn){
-        //default hardcoded admin login.
-        Admin admin = new Admin("Stella", "Maeve", "Admin", "Pa$word");
-        //if admin exists in system check the password is the same
-        if(admin!= null){
-            //if the password is correct return the admin object
-            if(admin.getPassword().equals(passwordIn)){
-                return admin;
-            }
-        }
-        //if the username does not exist or the password does not match, return null
-        return null;
-    }
-
-    /** 
-     * Method to handle User login.
-     * @param usernameIn provided username
-     * @param passwordIn provided login
-     * @return Returns the object for the specific User when login is successful, returns null if not.
-    */
-    private static User userLogin(String usernameIn, String passwordIn){
-        //pull User object from dictionary, value will return null if user does not exist
-        User user = userDictionary.get(usernameIn);
-        //if user exists in system check the password is the same
-        if(user!= null){
-            //if the password is correct return the user object
-            if(user.getPassword().equals(passwordIn)){
-                return user;
-            }
-        }
-        //if the username does not exist or the password does not match, return null
-        return null;
-    }
-
     /** 
      * Method to handle user or admin login. Uses a System.in Scanner to collect the Username and Password
      * then takes the credentials to the admin or user login depending on the isAdmin parameter.
@@ -295,5 +185,233 @@ import java.util.Scanner;
         }
         //return person collected
         return person;
+    }
+
+    /** 
+     * Method to handle User login.
+     * @param usernameIn provided username
+     * @param passwordIn provided login
+     * @return Returns the object for the specific User when login is successful, returns null if not.
+    */
+    private static User userLogin(String usernameIn, String passwordIn){
+        //pull User object from dictionary, value will return null if user does not exist
+        User user = userDictionary.get(usernameIn);
+        //if user exists in system check the password is the same
+        if(user!= null){
+            //if the password is correct return the user object
+            if(user.getPassword().equals(passwordIn)){
+                return user;
+            }
+        }
+        //if the username does not exist or the password does not match, return null
+        return null;
+    }
+
+        /** 
+     * Method to handle Admin login.
+     * @param usernameIn provided username
+     * @param passwordIn provided login
+     * @return Returns the object for the specific Admin when login is successful, returns null if not.
+    */
+    private static Admin adminLogin(String usernameIn, String passwordIn){
+        //default hardcoded admin login.
+        Admin admin = new Admin("Stella", "Maeve", "Admin", "Pa$word");
+        //if admin exists in system check the password is the same
+        if(admin!= null){
+            //if the password is correct return the admin object
+            if(admin.getPassword().equals(passwordIn)){
+                return admin;
+            }
+        }
+        //if the username does not exist or the password does not match, return null
+        return null;
+    }
+
+    /**
+     * Portal for User controls. 
+     * @param admin Person object of the user 
+     */
+    private static void userPortal(User user){
+        ArrayList<String> tickets = new ArrayList<String>();
+        if(user == null){
+            System.out.println("You do not have access to the user account.  The username or password may be incorrect.");
+            return;
+        }
+        boolean running = true;
+        while(running){
+            System.out.println("Hello "+ user.getFirstName() + " " + user.getLastName() +", what would you like to do today?");
+            System.out.println(" 1) Display all cars.");
+            System.out.println(" 2) Filter Cars");
+            System.out.println(" 3) Purchase a car");
+            System.out.println(" 4) View Tickets");
+            System.out.println(" 5) Sign out");
+            int input = readUserChoice();
+            switch (input) {
+                case 1:
+                    browseCars(carsArray);
+                    break;
+                case 2:
+                    filterCars(carsArray);
+                    break;
+                case 3:
+                    String ticket = purchaseCar(user,carsArray);
+                    if (ticket.length() > 0){
+                        tickets.add(ticket);
+                    }
+                    break;
+                case 4:
+                    viewTickets(tickets);
+                    break;
+                case 5:
+                    // Exit the program by changing the running value to false
+                    running = false;
+                    break;
+                default:
+                    // Handle invalid options
+                    System.out.print("Please enter a valid response.\n");
+                    break;
+            }
+        }
+    }
+    
+
+    /**
+     * Portal for Admin controls.  Currently allows Admin to test various code functionalities.
+     * @param admin Person object of the admin 
+     */
+    private static void adminPortal(Admin admin){
+        ArrayList<Car> testCarsArray = new ArrayList<Car>();
+        testCarsArray.add(new Sedan("1","Sedan","Toyota Camry","New","Silver",5,3067,"Diesel","Automatic","61J7MKYN8AUG05XV3",20688.35,0));
+        testCarsArray.add(new SUV("2","SUV","Toyota RAV4","Old","Green",5,2903,"Gasoline","Automatic","FVCRJHUHZCEX8LCDC",33050.65,0));
+        testCarsArray.add(new Hatchback("3","Hatchback","Honda Fit","New","Yellow",5,3055,"Hybrid","Automatic","YNA6L2L65Z33P6C4O",23471.55,3));
+        testCarsArray.add(new Pickup("4","Pickup","Ford F-150","Old","Black",5,339,"Gasoline","Automatic","9OV4OJ6SREVR4V2ZQ",21687.59,10));
+
+        //Dictionary<String,User> testUserDictionary = new Hashtable<String,User>();
+        ArrayList<String> testTicketsList = new ArrayList<String>();
+        User testUserA = new User(1, "testUserA", "Customer", 0, 0, false, "testUserA" , "password");
+        User testUserB = new User(2, "testUserB", "Customer", 0, 0, false, "testUserB", "password");
+        
+        if(admin == null){
+            System.out.println("You do not have access to the admin portal.");
+            return;
+        }
+        boolean running = true;
+        while(running){
+            System.out.println("Welcome to the Admin Portal, what would you like to test today?");
+            System.out.println(" 1) Test Display all cars.");
+            System.out.println(" 2) Test Filter Cars");
+            System.out.println(" 3) Test Purchase a car");
+            System.out.println(" 4) Test View Tickets");
+            System.out.println(" 5) testCarsStringsAndConstructors(ArrayList<String> cars, ArrayList<Car> carsArray)");
+            System.out.println(" 6) testUsersStringsAndConstructors(ArrayList<String> users, Dictionary<String,User> userDictionary)");
+            //System.out.println(" #) ");
+            System.out.println(" -1) Sign out");
+            int input = readUserChoice();
+            switch (input) {
+                case 1:
+                    browseCars(testCarsArray);
+                    break;
+                case 2:
+                    filterCars(testCarsArray);
+                    break;
+                case 3:
+                    String ticket = purchaseCar(testUserA,testCarsArray);
+                    if (ticket.length() > 0){
+                        testTicketsList.add(ticket);
+                    }
+                    break;
+                case 4:
+                    viewTickets(testTicketsList);
+                    break;
+                case 5:
+                    TestCases.testCarsStringsAndConstructors(readFile("car_data"), carsArray);
+                    break;
+                case 6:
+                    TestCases.testUsersStringsAndConstructors(readFile("user_data"), userDictionary);
+                    break;
+
+                // case #:
+                    
+                //     break;
+                case -1:
+                    // Exit the program by changing the running value to false
+                    running = false;
+                    break;
+                default:
+                    // Handle invalid options
+                    System.out.print("Please enter a valid response.\n");
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Prints the details of all cars from the provided ArrayList of Cars
+     * @param ArrayList<Car> list of cars being browsed
+     */
+    public static void browseCars(ArrayList<Car> Cars){
+        System.out.println("browseCars");
+    }
+    
+    /**
+     * Takes ArrayList input and asks the user how they would like it filtered and then 
+     * filters the cars by the CarType provided then prints the results.
+     * @param ArrayList<Car> the ArrayList you want to search through.
+     */
+    public static void filterCars(ArrayList<Car> Cars){
+        System.out.println("\t How would you like to filter?");
+        System.out.println("\t 1) Show New Cars");
+        System.out.println("\t 2) Show Used Cars");
+        int filterType = readUserChoice();
+        switch (filterType) {
+            case 1:
+                ;
+                break;
+            case 2:
+                ;
+                break;
+            default:
+                System.out.print("\tPlease enter a valid response.\n");    
+                break;
+        }
+        System.out.println("filterCars");
+    }
+
+    /**
+     * Takes user input and ArrayList cars input, asks the user which car they would like to purchase from the list of cars, 
+     * confirms that the car is available and within budget of the User's moneyAvailable.
+     * If car is not available and/or out of budget returns an empty string ("").
+     * Adjusts the moneyAvailable and carsAvailable to reflect the purchase, creates a ticket as a String and returns it.
+     * @param user
+     * @return String value of Ticket from purchase. Returns an empty string ("") if purchase is not successful.
+     */
+    public static String purchaseCar(User user, ArrayList<Car> cars){ 
+        System.out.println("\t What car would you like to buy?");
+        int carIndex = readUserChoice();
+        if(carIndex < carsArray.size() && carIndex >= 0){
+            //purchaseCar(carsArray.get(carIndex), user);
+        }
+        else{
+            System.out.println("\t Car index out of range.  That car cannot be purchased at this time.");
+        }
+        System.out.println("purchaseCar");
+        //create ticket: Car Type, Model, Color
+        return "";
+    }
+
+    /**
+     * Prints tickets when requested from the stored list in the user portal.  
+     * Assumption, Tickets are not preserved after logging out.
+     */
+    public static void viewTickets(ArrayList<String> tickets){
+        System.out.println("viewTickets");
+    }
+
+    /**
+     * Runs when the program is exited to overwrite the car_data and user_data.
+     * with the updated values that were generated while the program was running.
+     */
+    private static void updateData(){
+        System.out.println("updateData");
     }
 }

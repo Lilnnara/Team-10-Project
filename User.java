@@ -1,4 +1,4 @@
-class User extends Person {
+public class User extends Person {
     // Attributes specific to User
     private int id;
     private double moneyAvailable;
@@ -7,8 +7,18 @@ class User extends Person {
     private String username;
     private String password;
 
-    // Constructor for User
-    public User(int id, String firstName, String lastName, double moneyAvailable, int carsPurchased, boolean minecarsMembership, String username, String password) {
+    /**
+     * Constructor for User.  That extends Person class.
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param moneyAvailable
+     * @param carsPurchased
+     * @param minecarsMembership
+     * @param username
+     * @param password
+     */
+    protected User(int id, String firstName, String lastName, double moneyAvailable, int carsPurchased, boolean minecarsMembership, String username, String password) {
         super(firstName, lastName); // Call to the superclass (Person) constructor
         this.id = id;
         this.moneyAvailable = moneyAvailable;
@@ -17,64 +27,113 @@ class User extends Person {
         this.username = username;
         this.password = password;
     }
-    // Getters and setters for User attributes
-    public int getId() {
+     
+    /** 
+     * Getter for id
+     * @return int
+     */
+    protected int getId() {
         return id;
     }
-
-    public void setId(int id) {
+   
+    /** 
+     * Setter for id
+     * @param id
+     */
+    protected void setId(int id) {
         this.id = id;
     }
-
-    public double getMoneyAvailable() {
+    
+    /**
+     * Getter for moneyAvailable
+     * @return
+     */
+    protected double getMoneyAvailable() {
         return moneyAvailable;
     }
 
-    public void setMoneyAvailable(double moneyAvailable) {
+    /**
+     * Setter for moneyAvailable
+     * @param moneyAvailable
+     */
+    protected void setMoneyAvailable(double moneyAvailable) {
         this.moneyAvailable = moneyAvailable;
     }
 
-    public int getCarsPurchased() {
+    /**
+     * Getter for carsPurchased
+     * @return
+     */
+    protected int getCarsPurchased() {
         return carsPurchased;
     }
 
-    public void setCarsPurchased(int carsPurchased) {
+    /**
+     * Setter for carsPurchased
+     * @param carsPurchased
+     */
+    protected void setCarsPurchased(int carsPurchased) {
         this.carsPurchased = carsPurchased;
     }
 
-    public boolean isMinecarsMembership() {
+    /**
+     * Getter for minecarsMembership
+     * @return
+     */
+    protected boolean isMinecarsMembership() {
         return minecarsMembership;
     }
 
-    public void setMinecarsMembership(boolean minecarsMembership) {
+    /**
+     * Setter for minecarsMembership
+     * @param minecarsMembership
+     */
+    protected void setMinecarsMembership(boolean minecarsMembership) {
         this.minecarsMembership = minecarsMembership;
     }
 
   
-    public String getUsername() {
+    /**
+     * Getter for username
+     * @return
+     */
+    protected String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    /**
+     * Setter for username
+     * @param username
+     */
+    protected void setUsername(String username) {
         this.username = username;
     }
 
   
-    public String getPassword() {
+    /**
+     * Getter for password
+     * @return
+     */
+    protected String getPassword() {
         return password;
     }
 
   
-    public void setPassword(String password) {
+    /**
+     * Setter for password
+     * @param password
+     */
+    protected void setPassword(String password) {
         this.password = password;
     }
 
 
-    /**
-     * method to generate a clean String value for User for printing and comparisons.
+    
+    /** 
+     * Method to generate a clean String value for User for printing and comparisons.
      * @return String value of User object 
      */
     public String toString(){
-        return ""+id+","+firstName+","+lastName+","+moneyAvailable+","+carsPurchased+","+(minecarsMembership?"True":"False")+","+username+","+password;
+        return ""+id+","+super.getFirstName()+","+super.getLastName()+","+moneyAvailable+","+carsPurchased+","+(minecarsMembership?"True":"False")+","+username+","+password;
     }
 }

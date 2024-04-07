@@ -7,13 +7,12 @@ public class Log {
     private String eventDescription; 
     private String Username;
 
-
-    // Log test = new Log("Jenna","test");
-    // System.out.println(test);
-    //Output: "17:30:04 05-04-2024 - Jenna test"
-
-    /** Constructs a new Log entry with the supplied eventDescriptionIn and UsernameIn using the current timre and date value. */
-    public Log(String UsernameIn, String eventDescriptionIn){
+    /**
+     * Constructor for Log that takes eventDescriptionIn and UsernameIn as parameters and uses the current timre and date value. 
+     * @param UsernameIn
+     * @param eventDescriptionIn
+     */
+    protected Log(String UsernameIn, String eventDescriptionIn){
         //generate current date and time and assign as a string to timestamp
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
@@ -23,11 +22,57 @@ public class Log {
         Username = UsernameIn;
     }
 
-    //insert Getters and Setters here
+    
+    /**
+     * Getter for timestamp
+     * @return
+     */
+    protected String getTimestamp() {
+        return timestamp;
+    }
+
+    /**
+     * Setter for timestamp
+     * @param timestamp
+     */
+    protected void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    /**
+     * Getter for eventDescription
+     * @return
+     */
+    protected String getEventDescription() {
+        return eventDescription;
+    }
+
+    /**
+     * Setter for eventDescription
+     * @param eventDescription
+     */
+    protected void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
+    /**
+     * Getter for username
+     * @return
+     */
+    protected String getUsername() {
+        return Username;
+    }
+
+    /**
+     * Setter for username
+     * @param username
+     */
+    protected void setUsername(String username) {
+        Username = username;
+    }
 
     /** 
      * This method generates a String value of all the concatenated attributes of the Log file.
-     * 
      * @return String value of all Log attributes
      */
     public String toString(){
