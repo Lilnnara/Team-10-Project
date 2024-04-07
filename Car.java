@@ -29,6 +29,80 @@ public class Car {
         carsAvailable = carsAvailableIn;
     }
 
+    //Getters and Setters
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getCarType() {
+        return carType;
+    }
+    public void setCarType(String carType) {
+        this.carType = carType;
+    }
+    public String getModel() {
+        return model;
+    }
+    public void setModel(String model) {
+        this.model = model;
+    }
+    public String getCondition() {
+        return condition;
+    }
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+    public String getColor() {
+        return color;
+    }
+    public void setColor(String color) {
+        this.color = color;
+    }
+    public int getCapacity() {
+        return capacity;
+    }
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+    public int getMileage() {
+        return mileage;
+    }
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
+    }
+    public String getFuelType() {
+        return fuelType;
+    }
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+    public String getTransmission() {
+        return transmission;
+    }
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
+    }
+    public String getVin() {
+        return vin;
+    }
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    public int getCarsAvailable() {
+        return carsAvailable;
+    }
+    public void setCarsAvailable(int carsAvailable) {
+        this.carsAvailable = carsAvailable;
+    }
+    
     /**
      * method to generate a clean String value for Car for printing and comparisons.
      * @return String value of Car object 
