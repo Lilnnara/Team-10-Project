@@ -17,28 +17,6 @@ class User extends Person {
         this.username = username;
         this.password = password;
     }
-
-    //userInformation.split(",")[*] to use the userInfo values as arrays 
-    //or temp = userInformation.split(","); temp[*]
-    public User(String userInformationIn){
-        super();
-        String[] temp = userInformationIn.split(","); 
-        if(temp.length != 8){
-            System.out.println("Not enough information to create User: " + userInformationIn);
-            return;
-        }
-        id =  Integer.parseInt(temp[0]);
-        firstName = temp[1];
-        lastName = temp[2];
-        moneyAvailable =  Double.parseDouble(temp[3]);
-        carsPurchased =  Integer.parseInt(temp[4]);
-        minecarsMembership = Boolean.parseBoolean(temp[5]);
-        username = temp[6];
-        password = temp[7];
-        return;
-    }
-
-
     // Getters and setters for User attributes
     public int getId() {
         return id;
@@ -92,6 +70,10 @@ class User extends Person {
     }
 
 
+    /**
+     * method to generate a clean String value for User for printing and comparisons.
+     * @return String value of User object 
+     */
     public String toString(){
         return ""+id+","+firstName+","+lastName+","+moneyAvailable+","+carsPurchased+","+(minecarsMembership?"True":"False")+","+username+","+password;
     }
