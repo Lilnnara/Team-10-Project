@@ -14,32 +14,25 @@ public class Car {
 
     //Constructors
     public Car(){}
-    //carInformation.split(",")[*] to use the userInfo values as arrays 
-    //or temp = carInformation.split(","); temp[*]
-    public Car(String carInformationIn){
-        String[] temp = carInformationIn.split(","); 
-        if(temp.length != 12){
-            System.out.println("Not enough information to create Car: " + carInformationIn);
-            return;
-        }
-        id = temp[0];
-        carType = temp[1];
-        model = temp[2];
-        condition = temp[3];
-        color = temp[4];
-        capacity = Integer.parseInt(temp[5]);
-        mileage = Integer.parseInt(temp[6]);
-        fuelType = temp[7];
-        transmission = temp[8];
-        vin = temp[9];
-        price = Double.parseDouble(temp[10]);
-        carsAvailable = Integer.parseInt(temp[11]);
-    }
     public Car(String idIn, String carTypeIn, String modelIn, String conditionIn, String colorIn, int capacityIn, int mileageIn, String fuelTypeIn, String transmissionIn, String vinIn, double priceIn, int carsAvailableIn){
-
+        id = idIn;
+        carType = carTypeIn;
+        model = modelIn;
+        condition = conditionIn;
+        color = colorIn;
+        capacity = capacityIn;
+        mileage = mileageIn;
+        fuelType = fuelTypeIn;
+        transmission = transmissionIn;
+        vin = vinIn;
+        price = priceIn;
+        carsAvailable = carsAvailableIn;
     }
 
-    //toString() method:
+    /**
+     * method to generate a clean String value for Car for printing and comparisons.
+     * @return String value of Car object 
+     */
     public String toString(){
         return id+","+carType+","+model+","+condition+","+color+","+capacity+","+mileage+","+fuelType+","+transmission+","+vin+","+price+","+carsAvailable;
     }

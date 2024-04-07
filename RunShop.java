@@ -55,13 +55,51 @@ import java.util.Scanner;
 		 to create the appropriate Objects*/
         ArrayList<String> cars = readFile("car_data");
         ArrayList<String> users = readFile("user_data");
-		//itterate through the ArrayList with the forEach command and add a new car from the String of information
-		cars.forEach(carInfo -> carsArray.add(new Car(carInfo)));
-		//itterate through the ArrayList with the forEach command and put a new user in the Dictionary from the String of information
-		//later replace the "Dictionary Key" value with the username of User
-		//userInfo.split(",")[6] to use the userInfo values as arrays 
-		//and access the peice of information individually
-		users.forEach(userInfo -> userDictionary.put(userInfo.split(",")[6], new User(userInfo)));
+		//itterate through the ArrayLists using a for loop and the .size() method for both object types
+		for(int i = 0; i < cars.size(); i++){
+            //add a new car from the String of information to the Arraylist carsArray with the .add() method.
+            String[] temp = cars.get(i).split(","); 
+            String tempCarType = temp[1];
+            //switch case to create a car object of the correct subclass from the CarType variable
+            switch (tempCarType) {
+                case "Sedan":
+                    carsArray.add(new Sedan(temp[0], temp[1], temp[2], temp[3], temp[4], Integer.parseInt(temp[5]), Integer.parseInt(temp[6]), temp[7], temp[8], temp[9], Double.parseDouble(temp[10]), Integer.parseInt(temp[11])));
+                    break;
+                case "SUV":
+                    carsArray.add(new SUV(temp[0], temp[1], temp[2], temp[3], temp[4], Integer.parseInt(temp[5]), Integer.parseInt(temp[6]), temp[7], temp[8], temp[9], Double.parseDouble(temp[10]), Integer.parseInt(temp[11])));
+                    break;
+                case "Hatchback":
+                    carsArray.add(new Hatchback(temp[0], temp[1], temp[2], temp[3], temp[4], Integer.parseInt(temp[5]), Integer.parseInt(temp[6]), temp[7], temp[8], temp[9], Double.parseDouble(temp[10]), Integer.parseInt(temp[11])));    
+                    break;
+                case "Pickup":
+                    carsArray.add(new Pickup(temp[0], temp[1], temp[2], temp[3], temp[4], Integer.parseInt(temp[5]), Integer.parseInt(temp[6]), temp[7], temp[8], temp[9], Double.parseDouble(temp[10]), Integer.parseInt(temp[11])));
+                    break;
+                default:
+                    System.out.println("The car below could not be added due to unsuported Car Type:");
+                    System.out.println(cars.get(i));
+                    break;
+            }
+        }
+        for(int i = 0; i < users.size(); i++){
+            //add a new user from the String of information to the Dictionary
+            String[] temp = users.get(i).split(","); 
+            //use tempUsername to hold the username value and then use it as the dictionary key when the User object is added with the put() method
+            String tempUsername = temp[6];
+            userDictionary.put(tempUsername, new User(Integer.parseInt(temp[0]), temp[1], temp[2], Double.parseDouble(temp[3]), Integer.parseInt(temp[4]), Boolean.parseBoolean(temp[5]), temp[6], temp[7]));
+        }
+        /* Uncomment to test the Car and User Constructors and toString() methods in case of errors.
+        for(int i = 0; i < cars.size(); i++){
+            if(!(cars.get(i).equals(carsArray.get(i).toString()))){
+                System.out.println("Cars class and toString Error at line: " + (i+1));
+            }
+        }
+        for(int i = 0; i < users.size(); i++){
+            String tempUsername = users.get(i).split(",")[6];
+            if(!(users.get(i).equals(userDictionary.get(tempUsername).toString()))){
+                System.out.println("Users class and toString Error at line: " + (i+1));
+            }
+        }
+        */
     }
 	/** ArrayList structure to store cars when shop is running*/
     public static ArrayList<Car> carsArray = new ArrayList<Car>();
