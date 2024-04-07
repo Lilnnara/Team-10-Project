@@ -281,15 +281,20 @@ import java.util.Scanner;
      */
     private static void adminPortal(Admin admin){
         ArrayList<Car> testCarsArray = new ArrayList<Car>();
-        testCarsArray.add(new Sedan("1","Sedan","Toyota Camry","New","Silver",5,3067,"Diesel","Automatic","61J7MKYN8AUG05XV3",20688.35,0));
-        testCarsArray.add(new SUV("2","SUV","Toyota RAV4","Used","Green",5,2903,"Gasoline","Automatic","FVCRJHUHZCEX8LCDC",33050.65,0));
-        testCarsArray.add(new Hatchback("3","Hatchback","Honda Fit","New","Yellow",5,3055,"Hybrid","Automatic","YNA6L2L65Z33P6C4O",23471.55,3));
-        testCarsArray.add(new Pickup("4","Pickup","Ford F-150","Used","Black",5,339,"Gasoline","Automatic","9OV4OJ6SREVR4V2ZQ",21687.59,10));
+        // 1 not available out of budget, (should not work)
+        testCarsArray.add(new Sedan("1","Sedan","Toyota Camry","New","Silver",5,3067,"Diesel","Automatic","61J7MKYN8AUG05XV3",33050.65,0));
+        // 1 not available in budget, (should not work)
+        testCarsArray.add(new SUV("2","SUV","Toyota RAV4","Used","Green",5,2903,"Gasoline","Automatic","FVCRJHUHZCEX8LCDC",19900.52,0));
+        // 1 available and out of budget, (should not work)
+        testCarsArray.add(new Hatchback("3","Hatchback","Honda Fit","New","Yellow",5,3055,"Hybrid","Automatic","YNA6L2L65Z33P6C4O",33050.65,3));
+        // 1 available and in budget, //only one that should work    
+        testCarsArray.add(new Pickup("4","Pickup","Ford F-150","Used","Black",5,339,"Gasoline","Automatic","9OV4OJ6SREVR4V2ZQ",19900.52,10));
 
         //Dictionary<String,User> testUserDictionary = new Hashtable<String,User>();
         ArrayList<String> testTicketsList = new ArrayList<String>();
-        User testUserA = new User(1, "testUserA", "Customer", 0, 0, false, "testUserA" , "password");
-        User testUserB = new User(2, "testUserB", "Customer", 0, 0, false, "testUserB", "password");
+        ArrayList<User> testUserArray = new ArrayList<User>();
+        testUserArray.add(new User(1, "testUserA", "Customer", 20000, 1, false, "testUserA" , "password"));
+        testUserArray.add(new User(2, "testUserB", "Customer", 20000, 0, true, "testUserB", "password"));
         
         if(admin == null){
             System.out.println("You do not have access to the admin portal.");
@@ -298,6 +303,7 @@ import java.util.Scanner;
         boolean running = true;
         while(running){
             System.out.println("\nWelcome to the Admin Portal, what would you like to test today?");
+            System.out.println(" 0) Test Display test values.");
             System.out.println(" 1) Test Display all cars.");
             System.out.println(" 2) Test Filter Cars");
             System.out.println(" 3) Test Purchase a car");
@@ -308,20 +314,51 @@ import java.util.Scanner;
             System.out.println(" -1) Sign out");
             int input = readUserChoice();
             switch (input) {
+                case 0: 
+                    System.out.println("Test Cases:");
+                    System.out.println("\tCar Test Cases:");
+                    for (Car car : testCarsArray) {
+                        System.out.println("\t\t"+car);
+                    } 
+                    System.out.println("\n\tUser Test Cases:");
+                    for (User user : testUserArray){
+                        System.out.println("\t\t"+user);
+                    }
+                    System.out.println("\n\tTicket Test Cases:");
+                    for (String ticket: testTicketsList){
+                        System.out.println("\t\t"+ticket);
+                    }
+                    System.out.println();
+                    break;
                 case 1:
+                    System.out.println("Browse Cars:");
                     browseCars(testCarsArray);
                     break;
                 case 2:
-                    filterCars(testCarsArray);
+                    for(int i = 0; i < 2; i++){
+                        System.out.println("Filter Cars:");
+                        filterCars(testCarsArray);
+                    }
                     break;
                 case 3:
-                    String ticket = purchaseCar(testUserA,testCarsArray);
-                    if (ticket.length() > 0){
-                        testTicketsList.add(ticket);
+                    System.out.println("Purchase Cars:");
+                    System.out.println(" 4 Tests per user(testUserA is not a member, testUserB is a member): \n\t Car 1 not available out of budget, (should not work)\n\t Car 2 not available in budget, (should not work)\n\t Car 3 available and out of budget, (should not work)\n\t* Car 4 available and in budget, //only one that should work for both");
+                    for (int i = 0; i < testUserArray.size(); i++){
+                        System.out.println("For " + testUserArray.get(i).getFirstName());
+                        for(int j = 1; j <= 5; j++){
+                            System.out.println("\tTest " + j + ":");
+                            String ticket = purchaseCar(testUserArray.get(i),testCarsArray);
+                            if (ticket.length() > 0){
+                                testTicketsList.add(testUserArray.get(i).getUsername()+ ": " +ticket);
+                                System.out.println("\t Successful car purchase ticket: " + ticket);
+                            }        
+                        }
                     }
                     break;
                 case 4:
+                    System.out.println("View Tickets:");
                     viewTickets(testTicketsList);
+                    System.out.println("\t*Tickets are stored with usernames in Admin testing to diferentiate between purchases as unlike in User, the tickets do not go away until the Admin logs out.");
                     break;
                 case 5:
                     TestCases.testCarsStringsAndConstructors(readFile("car_data"), carsArray);
@@ -374,7 +411,6 @@ import java.util.Scanner;
             int filterType = readUserChoice();
             switch (filterType) {
                 case 1:
-
                     System.out.println("\tHere are all the New Cars in our System:");
                     condition = "New";
                     break;
@@ -411,17 +447,79 @@ import java.util.Scanner;
      * @return String value of Ticket from purchase. Returns an empty string ("") if purchase is not successful.
      */
     public static String purchaseCar(User user, ArrayList<Car> carsArrayList){ 
-        System.out.println("\t What car would you like to buy?");
+        //initialize ticket string that will contain an empty string as a default return value if a car is not purchased.
+        String ticket = "";
+        if(carsArrayList.size() == 0){
+            //there are no cars to be bought or looked through so, send a message and return the default empty string ticket.
+            System.out.println("You cannot purchase a car at this time as there are no cars in our inventory.");
+            return ticket;
+        }
+        System.out.println("\t What car would you like to buy? (Please enter a car ID between 1 and " + carsArrayList.size() + "):");
         int carIndex = readUserChoice();
-        if(carIndex < carsArray.size() && carIndex >= 0){
-            //purchaseCar(carsArray.get(carIndex), user);
+        //if car Index is greater than the array size, or less than 0, 
+        if(carIndex > carsArray.size() || carIndex <= 0){
+            System.out.println("\t The car you are trying to purchase is not in our inventory.");
         }
         else{
-            System.out.println("\t Car index out of range.  That car cannot be purchased at this time.");
+            Car possibleCar = carsArrayList.get(carIndex -1);
+            if(possibleCar.getCarsAvailable() < 1){
+                //if the number of available cars is zero or less return eror and exit method with return;
+                System.out.println("\t The car you are trying to purchase is currently out of stock.");
+                return ticket;
+            }
+            double price = 0;
+            //calculate reduced cost if the user is a member or not.
+            if( user.isMinecarsMembership()){
+                //15% off or 85% of the total cost
+                price = (0.85) * possibleCar.getPrice();
+            }
+            else{
+                price = possibleCar.getPrice();
+            }
+            //if the car is outside of their budget return eror and exit method with return;
+            if(price > user.getMoneyAvailable()){
+                System.out.println("\t The car you are trying to purchase is outside of your available funds.");
+                return ticket;
+            }
+            //if car is within budget for the user, ask them if they would like to continue with purchse and if so generate and return ticket.  
+            System.out.println("purchaseCar");
+            System.out.println("\t The car you are trying to purchase is in stock and within your budget!");
+            if(user.isMinecarsMembership()){
+                System.out.println("\t Would you like to purchase for the cost of: " + price + "(The member discout of %15 off the asking price?)");
+            }
+            else{
+                System.out.println("\t Would you like to purchase for the cost of: " + price);
+            }
+            System.out.println(possibleCar);
+            System.out.println("\t 1) Yes, 2) No");
+            boolean runAgain = true;
+            while(runAgain){
+                runAgain = false;
+                int toBuyOrNotToBuy = readUserChoice();
+                switch (toBuyOrNotToBuy) {
+                    case 1:
+                        //create ticket: Car Type, Model, Color
+                        System.out.println("\tCongratulations on your new car! This ticket and all other tickets from this visit will be accessible from the home screen.");
+                        ticket = possibleCar.getCarType() +", "+ possibleCar.getModel() +", "+ possibleCar.getColor();
+                        //Adjust cars purchased +(true)1 money available -(false)price and cars available -(false)1
+                        user.updateCarsPurchased(true, 1);
+                        user.updateMoneyAvailable(false, price);
+                        possibleCar.updateCarsAvailable(false, 1);
+                        break;
+                    case 2:
+                        //do not change ticket values from default empty value.
+                        System.out.println("Okay!");
+                        break;
+                    default:
+                        System.out.println("\tPlease enter a valid response.");
+                        //assign true so the while loop loops again.
+                        runAgain = true;
+                        break;
+                }
+            }
         }
-        System.out.println("purchaseCar");
-        //create ticket: Car Type, Model, Color
-        return "";
+        //return ticket.
+        return ticket;
     }
 
     /**
