@@ -140,8 +140,8 @@ public class User extends Person {
     /**
      * Updates the moneyAvailable.  Adds the "amount" value if isDeposit is True, 
      * and subtracts the "amount" value if isDeposit is false as it would then be a withdrawl.
-     * @param isDeposit
-     * @param amount
+     * @param isDeposit boolean value, true if the money is being deposited in the account.
+     * @param amount the amount the money available goes up or down
      */
     public void updateMoneyAvailable(boolean isDeposit, double amount){
         //add the amount to the balance
@@ -151,6 +151,23 @@ public class User extends Person {
         //if deposit is false then the transaction is a withdrawl and the amount should be subtracted
         else{
             setMoneyAvailable(getMoneyAvailable() - amount);
+        }
+    }
+
+    /**
+     * Updates the carsPurchased.  Adds the "amount" value if isIncrease is True, 
+     * and subtracts the "amount" value if isIncrease is false as it would then be a decrease.
+     * @param isIncrease boolean value, true if the number of carsPurchased is increasing.
+     * @param amount the amount the carsPurchased is being increased or decreased by.
+     */
+    public void updateCarsPurchased(boolean isIncrease, int amount){
+        //add the amount to the balance
+        if(isIncrease){
+            setCarsPurchased(getCarsPurchased() + amount);;
+        }
+        //if deposit is false then the transaction is a withdrawl and the amount should be subtracted
+        else{
+            setCarsPurchased(getCarsPurchased() - amount);
         }
     }
 }
