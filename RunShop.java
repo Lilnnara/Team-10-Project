@@ -87,19 +87,6 @@ import java.util.Scanner;
             String tempUsername = temp[6];
             userDictionary.put(tempUsername, new User(Integer.parseInt(temp[0]), temp[1], temp[2], Double.parseDouble(temp[3]), Integer.parseInt(temp[4]), Boolean.parseBoolean(temp[5]), temp[6], temp[7]));
         }
-        /* Uncomment to test the Car and User Constructors and toString() methods in case of errors.
-        for(int i = 0; i < cars.size(); i++){
-            if(!(cars.get(i).equals(carsArray.get(i).toString()))){
-                System.out.println("Cars class and toString Error at line: " + (i+1));
-            }
-        }
-        for(int i = 0; i < users.size(); i++){
-            String tempUsername = users.get(i).split(",")[6];
-            if(!(users.get(i).equals(userDictionary.get(tempUsername).toString()))){
-                System.out.println("Users class and toString Error at line: " + (i+1));
-            }
-        }
-        */
     }
 	/** ArrayList structure to store cars when shop is running*/
     public static ArrayList<Car> carsArray = new ArrayList<Car>();
@@ -112,50 +99,201 @@ import java.util.Scanner;
         initializeShop();
         // Display a welcome message
         System.out.println("Welcome to Mine Cars Dealership System!");
-        
-        // Initialize necessary classes and variables here
-        // For example, this could include initializing the inventory, user management, etc.
-        
-        // TODO: Implement the menu-driven system here
+        //Prompt user to select to login as an Admin or User
         boolean running = true;
-        while (!running) {
-            // Display the main menu options
-            System.out.println("1. Login");
-            System.out.println("2. Exit");
-            System.out.print("Please choose an option: ");
-
-            // Read the user's choice
-            int choice = readUserChoice();
-            
-            switch (choice) {
+        while(running){
+            System.out.println("Would you like to login as: \n 1) Admin \n 2) User \n 3) Exit Program");
+            int input = readUserChoice();
+            switch (input) {
                 case 1:
-                    // Handle user login
-                    handleLogin();
+                    //Handle admin login with the login(true) method which calls adminLogin. (typecast to Admin to use in adminPortal) Returns null if login unsuccessful.
+                    Admin admin = (Admin)login(true);
+                    adminPortal(admin);
                     break;
                 case 2:
-                    // Exit the program
-                    System.out.println("Thank you for using Mine Cars Dealership System!");
+                    //Handle user login with the login(false) method which calls userLogin. (typecast to User to use in userPortal) Returns null if login unsuccessful.
+                    User user = (User)login(false);
+                    userPortal(user);
+                    break;
+                case 3:
+                    // Exit the program by changing the running value to false
                     running = false;
                     break;
                 default:
                     // Handle invalid options
-                    System.out.println("Invalid option, please try again.");
+                    System.out.print("Please enter a valid response.\n");
+                    break;
+            }
+        }
+        System.out.println("Thank you for using Mine Cars Dealership System. Have a good day!");
+    }
+    
+    /**
+     * Portal for User controls. 
+     * @param admin Person object of the user 
+     */
+    private static void userPortal(User user){
+        if(user == null){
+            System.out.println("You do not have access to the user account.  The username or password may be incorrect.");
+            return;
+        }
+        boolean running = true;
+        while(running){
+            System.out.println("Hello "+ user.getFirstName() + " " + user.getLastName() +", what would you like to do today?");
+            System.out.println(" 1) ");
+            System.out.println(" 2) ");
+            System.out.println(" 3) ");
+            System.out.println(" 4) ");
+            System.out.println(" 5) Sign out");
+            int input = readUserChoice();
+            switch (input) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 5:
+                    // Exit the program by changing the running value to false
+                    running = false;
+                    break;
+                default:
+                    // Handle invalid options
+                    System.out.print("Please enter a valid response.\n");
                     break;
             }
         }
     }
     
-    // Method to read user's choice from console
+
+    /**
+     * Portal for Admin controls.  Currently allows Admin to test various code functionalities.
+     * @param admin Person object of the admin 
+     */
+    private static void adminPortal(Admin admin){
+        if(admin == null){
+            System.out.println("You do not have access to the admin portal.");
+            return;
+        }
+        boolean running = true;
+        while(running){
+            System.out.println("Welcome to the Admin Portal, what would you like to test today?");
+            System.out.println(" 1) testCarsStringsAndConstructors(ArrayList<String> cars, ArrayList<Car> carsArray)");
+            System.out.println(" 2) testUsersStringsAndConstructors(ArrayList<String> users, Dictionary<String,User> userDictionary)");
+            //System.out.println(" #) ");
+            System.out.println(" -1) Sign out");
+            int input = readUserChoice();
+            switch (input) {
+                case 1:
+                    TestCases.testCarsStringsAndConstructors(readFile("car_data"), carsArray);
+                    break;
+                case 2:
+                    TestCases.testUsersStringsAndConstructors(readFile("user_data"), userDictionary);
+                    break;
+                // case #:
+                    
+                //     break;
+                case -1:
+                    // Exit the program by changing the running value to false
+                    running = false;
+                    break;
+                default:
+                    // Handle invalid options
+                    System.out.print("Please enter a valid response.\n");
+                    break;
+            }
+        }
+    }
+
+    /**
+     *  Method to read user's integer choice from console 
+     * @return integer value of user input or default -1 value for non integer inputs
+     */
     private static int readUserChoice() {
-        // This method should read the user's input and return the choice as an integer
-        // Consider using Scanner for console input
-        return 0; // Placeholder return value
+        int choice = -1;
+        try{
+            Scanner in = new Scanner(System.in);
+            //check if the user has inputed an integer as the next value
+            if (in.hasNextInt()){
+                //collect the integer
+                choice = in.nextInt();
+            }
+            //clear the scanner to the end of the line to avoid errors
+            in.nextLine();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return choice; // return choice, integer value of user input or default -1 value for non integer inputs
     }
     
-    // Method to handle user login
-    private static void handleLogin() {
-        // Implementation for handling user login
-        // This may include asking for username/password, validating credentials, etc.
+    /** 
+     * Method to handle Admin login.
+     * @param usernameIn provided username
+     * @param passwordIn provided login
+     * @return Returns the object for the specific Admin when login is successful, returns null if not.
+    */
+    private static Admin adminLogin(String usernameIn, String passwordIn){
+        //default hardcoded admin login.
+        Admin admin = new Admin("Stella", "Maeve", "Admin", "Pa$word");
+        //if admin exists in system check the password is the same
+        if(admin!= null){
+            //if the password is correct return the admin object
+            if(admin.getPassword().equals(passwordIn)){
+                return admin;
+            }
+        }
+        //if the username does not exist or the password does not match, return null
+        return null;
     }
-    
+
+    /** 
+     * Method to handle User login.
+     * @param usernameIn provided username
+     * @param passwordIn provided login
+     * @return Returns the object for the specific User when login is successful, returns null if not.
+    */
+    private static User userLogin(String usernameIn, String passwordIn){
+        //pull User object from dictionary, value will return null if user does not exist
+        User user = userDictionary.get(usernameIn);
+        //if user exists in system check the password is the same
+        if(user!= null){
+            //if the password is correct return the user object
+            if(user.getPassword().equals(passwordIn)){
+                return user;
+            }
+        }
+        //if the username does not exist or the password does not match, return null
+        return null;
+    }
+
+    /** 
+     * Method to handle user or admin login. Uses a System.in Scanner to collect the Username and Password
+     * then takes the credentials to the admin or user login depending on the isAdmin parameter.
+     * @param isAdmin boolean value of whether the person trying to login is an Admin or a User
+     * @return Returns a Person value of the User or Admin if the login was successful. Returns null if not.
+     */
+    private static Person login(boolean isAdmin) {
+        Person person = null;
+        //Ask for username and password
+        Scanner in = new Scanner(System.in);
+        System.out.print("Username:");
+        String username = in.next();
+        //clear the scanner to the end of the line to avoid errors
+        in.nextLine();
+        System.out.print("Password:");
+        //clear the scanner to the end of the line to avoid errors
+        String password = in.next();
+        in.nextLine();
+        //if input boolean value is true call adminLogin and assign generated admin to person
+        if(isAdmin){
+            person = adminLogin(username, password);
+        }
+        //if input boolean value is false call userLogin and assign generated User to person
+        else{
+            person = userLogin(username, password);
+        }
+        //return person collected
+        return person;
+    }
 }
