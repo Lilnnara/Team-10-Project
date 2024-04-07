@@ -229,7 +229,7 @@ import java.util.Scanner;
 
     /**
      * Portal for User controls. 
-     * @param admin Person object of the user 
+     * @param user Person object of the user 
      */
     private static void userPortal(User user){
         ArrayList<String> tickets = new ArrayList<String>();
@@ -349,16 +349,16 @@ import java.util.Scanner;
      * Prints the details of all cars from the provided ArrayList of Cars
      * @param ArrayList<Car> list of cars being browsed
      */
-    public static void browseCars(ArrayList<Car> Cars){
+    public static void browseCars(ArrayList<Car> carsArrayList){
         System.out.println("browseCars");
     }
     
     /**
      * Takes ArrayList input and asks the user how they would like it filtered and then 
      * filters the cars by the CarType provided then prints the results.
-     * @param ArrayList<Car> the ArrayList you want to search through.
+     * @param ArrayList<Car> the ArrayList you want to filter.
      */
-    public static void filterCars(ArrayList<Car> Cars){
+    public static void filterCars(ArrayList<Car> carsArrayList){
         System.out.println("\t How would you like to filter?");
         System.out.println("\t 1) Show New Cars");
         System.out.println("\t 2) Show Used Cars");
@@ -383,9 +383,10 @@ import java.util.Scanner;
      * If car is not available and/or out of budget returns an empty string ("").
      * Adjusts the moneyAvailable and carsAvailable to reflect the purchase, creates a ticket as a String and returns it.
      * @param user
+     * @param ArrayList<Car>
      * @return String value of Ticket from purchase. Returns an empty string ("") if purchase is not successful.
      */
-    public static String purchaseCar(User user, ArrayList<Car> cars){ 
+    public static String purchaseCar(User user, ArrayList<Car> carsArrayList){ 
         System.out.println("\t What car would you like to buy?");
         int carIndex = readUserChoice();
         if(carIndex < carsArray.size() && carIndex >= 0){
@@ -402,6 +403,7 @@ import java.util.Scanner;
     /**
      * Prints tickets when requested from the stored list in the user portal.  
      * Assumption, Tickets are not preserved after logging out.
+     * @param ArrayList<String> An ArrayList Containing the Ticket being viewed.
      */
     public static void viewTickets(ArrayList<String> tickets){
         System.out.println("viewTickets");
