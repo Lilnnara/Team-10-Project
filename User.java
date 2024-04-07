@@ -136,4 +136,21 @@ public class User extends Person {
     public String toString(){
         return ""+id+","+super.getFirstName()+","+super.getLastName()+","+moneyAvailable+","+carsPurchased+","+(minecarsMembership?"True":"False")+","+username+","+password;
     }
+
+    /**
+     * Updates the moneyAvailable.  Adds the "amount" value if isDeposit is True, 
+     * and subtracts the "amount" value if isDeposit is false as it would then be a withdrawl.
+     * @param isDeposit
+     * @param amount
+     */
+    public void updateMoneyAvailable(boolean isDeposit, double amount){
+        //add the amount to the balance
+        if(isDeposit){
+            setMoneyAvailable(getMoneyAvailable() + amount);
+        }
+        //if deposit is false then the transaction is a withdrawl and the amount should be subtracted
+        else{
+            setMoneyAvailable(getMoneyAvailable() - amount);
+        }
+    }
 }
