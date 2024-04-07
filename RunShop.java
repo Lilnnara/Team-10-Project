@@ -350,7 +350,10 @@ import java.util.Scanner;
      * @param ArrayList<Car> list of cars being browsed
      */
     public static void browseCars(ArrayList<Car> carsArrayList){
-        System.out.println("browseCars");
+        System.out.println("Here are all the Cars in our System:");
+        for (int i = 0; i < carsArrayList.size(); i++){
+            System.out.println("\t" + carsArrayList.get(i));
+        }
     }
     
     /**
@@ -408,7 +411,7 @@ import java.util.Scanner;
     public static void viewTickets(ArrayList<String> tickets){
         System.out.println("Here are all the purchased car tickets you generated since you logged in: ");
         for(int i = 0; i < tickets.size();i++){
-            System.out.println(tickets.get(i));
+            System.out.println("\t" + tickets.get(i));
         }
     }
 
