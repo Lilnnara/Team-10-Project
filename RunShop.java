@@ -239,7 +239,7 @@ import java.util.Scanner;
         }
         boolean running = true;
         while(running){
-            System.out.println("Hello "+ user.getFirstName() + " " + user.getLastName() +", what would you like to do today?");
+            System.out.println("\nHello "+ user.getFirstName() + " " + user.getLastName() +", what would you like to do today?");
             System.out.println(" 1) Display all cars.");
             System.out.println(" 2) Filter Cars");
             System.out.println(" 3) Purchase a car");
@@ -297,7 +297,7 @@ import java.util.Scanner;
         }
         boolean running = true;
         while(running){
-            System.out.println("Welcome to the Admin Portal, what would you like to test today?");
+            System.out.println("\nWelcome to the Admin Portal, what would you like to test today?");
             System.out.println(" 1) Test Display all cars.");
             System.out.println(" 2) Test Filter Cars");
             System.out.println(" 3) Test Purchase a car");
@@ -406,7 +406,10 @@ import java.util.Scanner;
      * @param ArrayList<String> An ArrayList Containing the Ticket being viewed.
      */
     public static void viewTickets(ArrayList<String> tickets){
-        System.out.println("viewTickets");
+        System.out.println("Here are all the purchased car tickets you generated since you logged in: ");
+        for(int i = 0; i < tickets.size();i++){
+            System.out.println(tickets.get(i));
+        }
     }
 
     /**
