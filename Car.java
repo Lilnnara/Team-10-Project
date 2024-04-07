@@ -1,4 +1,4 @@
-public class Car {
+public abstract class Car {
     private String id;
     private String carType;
     private String model;
@@ -13,8 +13,24 @@ public class Car {
     private int carsAvailable;
 
     //Constructors
-    public Car(){}
-    public Car(String idIn, String carTypeIn, String modelIn, String conditionIn, String colorIn, int capacityIn, int mileageIn, String fuelTypeIn, String transmissionIn, String vinIn, double priceIn, int carsAvailableIn){
+    protected Car(){}
+
+    /**
+     * Constructor for Car.  An abstract class.
+     * @param idIn
+     * @param carTypeIn
+     * @param modelIn
+     * @param conditionIn
+     * @param colorIn
+     * @param capacityIn
+     * @param mileageIn
+     * @param fuelTypeIn
+     * @param transmissionIn
+     * @param vinIn
+     * @param priceIn
+     * @param carsAvailableIn
+     */
+    protected Car(String idIn, String carTypeIn, String modelIn, String conditionIn, String colorIn, int capacityIn, int mileageIn, String fuelTypeIn, String transmissionIn, String vinIn, double priceIn, int carsAvailableIn){
         id = idIn;
         carType = carTypeIn;
         model = modelIn;
@@ -29,77 +45,195 @@ public class Car {
         carsAvailable = carsAvailableIn;
     }
 
-    //Getters and Setters
-    public String getId() {
+    /**
+     * Getter for id
+     * @return
+     */
+    protected String getId() {
         return id;
     }
-    public void setId(String id) {
+
+    /**
+     * Setter for id
+     * @param id
+     */
+    protected void setId(String id) {
         this.id = id;
     }
-    public String getCarType() {
+
+    /**
+     * Getter for carType
+     * @return
+     */
+    protected String getCarType() {
         return carType;
     }
-    public void setCarType(String carType) {
+
+    /**
+     * Setter for carType
+     * @param carType
+     */
+    protected void setCarType(String carType) {
         this.carType = carType;
     }
-    public String getModel() {
+
+    /**
+     * Getter for model
+     * @return
+     */
+    protected String getModel() {
         return model;
     }
-    public void setModel(String model) {
+
+    /**
+     * Setter for model
+     * @param model
+     */
+    protected void setModel(String model) {
         this.model = model;
     }
-    public String getCondition() {
+
+    /**
+     * Getter for condition
+     * @return
+     */
+    protected String getCondition() {
         return condition;
     }
-    public void setCondition(String condition) {
+
+    /**
+     * Setter for condition
+     * @param condition
+     */
+    protected void setCondition(String condition) {
         this.condition = condition;
     }
-    public String getColor() {
+
+    /**
+     * Getter for color
+     * @return
+     */
+    protected String getColor() {
         return color;
     }
-    public void setColor(String color) {
+
+    /**
+     * Setter for color
+     * @param color
+     */
+    protected void setColor(String color) {
         this.color = color;
     }
-    public int getCapacity() {
+
+    /**
+     * Getter for capacity
+     * @return
+     */
+    protected int getCapacity() {
         return capacity;
     }
-    public void setCapacity(int capacity) {
+
+    /**
+     * Setter for capacity
+     * @param capacity
+     */
+    protected void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-    public int getMileage() {
+
+    /**
+     * Getter for mileage
+     * @return
+     */
+    protected int getMileage() {
         return mileage;
     }
-    public void setMileage(int mileage) {
+
+    /**
+     * Setter for mileage
+     * @param mileage
+     */
+    protected void setMileage(int mileage) {
         this.mileage = mileage;
     }
-    public String getFuelType() {
+
+    /**
+     * Getter for fuelType
+     * @return
+     */
+    protected String getFuelType() {
         return fuelType;
     }
-    public void setFuelType(String fuelType) {
+    
+    /**
+     * Setter for fuelType
+     * @param fuelType
+     */
+    protected void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
-    public String getTransmission() {
+
+    /**
+     * Getter for transmission
+     * @return
+     */
+    protected String getTransmission() {
         return transmission;
     }
-    public void setTransmission(String transmission) {
+
+    /**
+     * Setter for transmission
+     * @param transmission
+     */
+    protected void setTransmission(String transmission) {
         this.transmission = transmission;
     }
-    public String getVin() {
+
+    /**
+     * Getter for vin
+     * @return
+     */
+    protected String getVin() {
         return vin;
     }
-    public void setVin(String vin) {
+
+    /**
+     * Setter for vin
+     * @param vin
+     */
+    protected void setVin(String vin) {
         this.vin = vin;
     }
-    public double getPrice() {
+
+    /**
+     * Getter for price
+     * @return
+     */
+    protected double getPrice() {
         return price;
     }
-    public void setPrice(double price) {
+
+    /**
+     * Setter for price
+     * @param price
+     */
+    protected void setPrice(double price) {
         this.price = price;
     }
-    public int getCarsAvailable() {
+
+    /**
+     * Getter for carsAvailable
+     * @return
+     */
+    protected int getCarsAvailable() {
         return carsAvailable;
     }
-    public void setCarsAvailable(int carsAvailable) {
+
+    /**
+     * Setter for carsAvailable
+     * @param carsAvailable
+     */
+    protected void setCarsAvailable(int carsAvailable) {
         this.carsAvailable = carsAvailable;
     }
     

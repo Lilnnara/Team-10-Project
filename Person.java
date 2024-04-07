@@ -1,29 +1,50 @@
 public abstract class Person {
     // Attributes
-    protected String firstName;
-    protected String lastName;
+    private String firstName;
+    private String lastName;
 
     // Constructors
-    public Person(){}
-    public Person(String firstName, String lastName) {
+    protected Person(){}
+
+    /**
+     * Constructor for Person.  An abstract class.
+     * @param firstName
+     * @param lastName
+     */
+    protected Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    // Getters and Setters
-    public String getFirstName() {
+    /** 
+     * Getter for firstName
+     * @return String
+     */
+    protected String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    /** 
+     * Setter for firstName
+     * @param firstName
+     */
+    protected void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    /** 
+     * Getter for lastName
+     * @return String
+     */
+    protected String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    /** 
+     * Setter for lastName
+     * @param lastName
+     */
+    protected void setLastName(String lastName) {
         this.lastName = lastName;
     }
 }
