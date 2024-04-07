@@ -143,7 +143,7 @@ public class User extends Person {
      * @param isDeposit boolean value, true if the money is being deposited in the account.
      * @param amount the amount the money available goes up or down
      */
-    public void updateMoneyAvailable(boolean isDeposit, double amount){
+    protected void updateMoneyAvailable(boolean isDeposit, double amount){
         //add the amount to the balance
         if(isDeposit){
             setMoneyAvailable(getMoneyAvailable() + amount);
@@ -160,7 +160,7 @@ public class User extends Person {
      * @param isIncrease boolean value, true if the number of carsPurchased is increasing.
      * @param amount the amount the carsPurchased is being increased or decreased by.
      */
-    public void updateCarsPurchased(boolean isIncrease, int amount){
+    protected void updateCarsPurchased(boolean isIncrease, int amount){
         //add the amount to the balance
         if(isIncrease){
             setCarsPurchased(getCarsPurchased() + amount);;

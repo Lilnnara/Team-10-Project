@@ -251,7 +251,7 @@ public abstract class Car {
      * @param isIncrease boolean value, true if the number of carsAvailable is increasing.
      * @param amount the amount the carsAvailable is being increased or decreased by.
      */
-    public void updateCarsAvailable(boolean isIncrease, int amount){
+    protected void updateCarsAvailable(boolean isIncrease, int amount){
         //add the amount to the balance
         if(isIncrease){
             setCarsAvailable(getCarsAvailable() + amount);;
