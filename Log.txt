@@ -1,0 +1,4 @@
+20:00:42 07-04-2024 -  Shop initialized.
+20:00:45 07-04-2024 -  Data updated.
+20:00:45 07-04-2024 -  Shop closed.
+
