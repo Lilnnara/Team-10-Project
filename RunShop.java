@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.io.File;
 import java.util.Scanner;
 
@@ -17,11 +18,13 @@ import java.util.Scanner;
  public class RunShop {
 
     /** ArrayList structure to store cars when shop is running*/
-    public static ArrayList<Car> carsArray = new ArrayList<Car>();
+    private static ArrayList<Car> carsArray = new ArrayList<Car>();
 
     /** Dictionary structure to store users when shop is running*/
-    public static Dictionary<String, User>  userDictionary = new Hashtable<String,User>();
+    private static Dictionary<String, User>  userDictionary = new Hashtable<String,User>();
 
+    /** LinkedList structure to store Logs as they are generated throughout the program. */
+    private static LinkedList<Log> logsLinkedList = new LinkedList<Log>();
 
     /**
      * Program main method.
@@ -30,6 +33,7 @@ import java.util.Scanner;
     public static void main(String[] args) {
 		//initialize the cars and users values
         initializeShop();
+        logsLinkedList.add(new Log("","Shop initialized."));
         // Display a welcome message
         System.out.println("Welcome to Mine Cars Dealership System!");
         //Prompt user to select to login as an Admin or User
@@ -59,7 +63,13 @@ import java.util.Scanner;
             }
         }
         updateData();
+        logsLinkedList.add(new Log("","Shop closed."));
         System.out.println("Thank you for using Mine Cars Dealership System. Have a good day!");
+        System.out.println("Logs:");
+        for (int i = 0; i < logsLinkedList.size(); i++){
+            System.out.println(logsLinkedList.get(i).toString());
+        }
+        System.out.println("");
     }
     
     /** 
@@ -200,6 +210,7 @@ import java.util.Scanner;
         if(user!= null){
             //if the password is correct return the user object
             if(user.getPassword().equals(passwordIn)){
+                logsLinkedList.add(new Log(user.getUsername(),"logged in."));
                 return user;
             }
         }
@@ -220,6 +231,7 @@ import java.util.Scanner;
         if(admin!= null){
             //if the password is correct return the admin object
             if(admin.getPassword().equals(passwordIn)){
+                logsLinkedList.add(new Log(("Admin " + admin.getUsername()),"logged in."));
                 return admin;
             }
         }
@@ -249,9 +261,11 @@ import java.util.Scanner;
             switch (input) {
                 case 1:
                     browseCars(carsArray);
+                    logsLinkedList.add(new Log(user.getUsername(),"printed all cars."));
                     break;
                 case 2:
                     filterCars(carsArray);
+                    logsLinkedList.add(new Log(user.getUsername(),"filtered cars by condition."));
                     break;
                 case 3:
                     String ticket = purchaseCar(user,carsArray);
@@ -261,10 +275,12 @@ import java.util.Scanner;
                     break;
                 case 4:
                     viewTickets(tickets);
+                    logsLinkedList.add(new Log(user.getUsername(),"viewed tickets."));
                     break;
                 case 5:
                     // Exit the program by changing the running value to false
                     running = false;
+                    logsLinkedList.add(new Log(user.getUsername(),"logged out."));
                     break;
                 default:
                     // Handle invalid options
@@ -380,6 +396,7 @@ import java.util.Scanner;
                     break;
             }
         }
+        logsLinkedList.add(new Log("Admin " + admin.getUsername(),"logged out."));
     }
 
     /**
@@ -505,6 +522,7 @@ import java.util.Scanner;
                         user.updateCarsPurchased(true, 1);
                         user.updateMoneyAvailable(false, price);
                         possibleCar.updateCarsAvailable(false, 1);
+                        logsLinkedList.add(new Log(user.getUsername(),"bought a(n) "+ ticket + " for "+ price +"."));
                         break;
                     case 2:
                         //do not change ticket values from default empty value.
@@ -540,5 +558,6 @@ import java.util.Scanner;
      */
     private static void updateData(){
         System.out.println("updateData");
+        logsLinkedList.add(new Log("","Data updated."));
     }
 }
