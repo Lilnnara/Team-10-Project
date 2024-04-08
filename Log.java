@@ -8,7 +8,7 @@ public class Log {
     private String Username;
 
     /**
-     * Constructor for Log that takes eventDescriptionIn and UsernameIn as parameters and uses the current timre and date value. 
+     * Constructor for Log that takes UsernameIn and eventDescriptionIn as parameters and uses the current timre and date value. 
      * @param UsernameIn
      * @param eventDescriptionIn
      */
