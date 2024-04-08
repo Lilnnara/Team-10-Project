@@ -3,6 +3,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 /**
@@ -19,9 +20,14 @@ import java.util.Scanner;
 
     /** ArrayList structure to store cars when shop is running*/
     private static ArrayList<Car> carsArray = new ArrayList<Car>();
+    /** String to hold the Header of the car_data file to rewrite to the file when the program closes. */
+    private static String carsDataHeader;
 
     /** Dictionary structure to store users when shop is running*/
     private static Dictionary<String, User>  userDictionary = new Hashtable<String,User>();
+    /** String to hold the Header of the user_data file to rewrite to the file when the program closes. */
+    private static String userDataHeader;
+    private static ArrayList<String> usernamesInOrdeArrayList = new ArrayList<String>();
 
     /** LinkedList structure to store Logs as they are generated throughout the program. */
     private static LinkedList<Log> logsLinkedList = new LinkedList<Log>();
@@ -84,8 +90,6 @@ import java.util.Scanner;
 		try{
             //create new Scanner
 			Scanner fileScanner = new Scanner(file);
-            //scan first line with the headers and discard
-            fileScanner.nextLine();
             //iterate through the whole file
 			while(fileScanner.hasNextLine()){
                 //add each line to the fileLines ArrayList
@@ -95,7 +99,6 @@ import java.util.Scanner;
             fileScanner.close();
 		}
 		catch(Exception e){
-			//adjust the exception here later to not end the program
 			e.printStackTrace();
 		}
         //return fileLines ArrayList
@@ -111,8 +114,12 @@ import java.util.Scanner;
 		 to create the appropriate Objects*/
         ArrayList<String> cars = readFile("car_data");
         ArrayList<String> users = readFile("user_data");
+        //Store first line of file to use later when printing over the file when the program closes.
+        carsDataHeader = cars.get(0);
+        userDataHeader = users.get(0);
 		//itterate through the ArrayLists using a for loop and the .size() method for both object types
-		for(int i = 0; i < cars.size(); i++){
+		//Start at 1 to skip the column header line
+        for(int i = 1; i < cars.size(); i++){
             //add a new car from the String of information to the Arraylist carsArray with the .add() method.
             String[] temp = cars.get(i).split(","); 
             String tempCarType = temp[1];
@@ -136,11 +143,13 @@ import java.util.Scanner;
                     break;
             }
         }
-        for(int i = 0; i < users.size(); i++){
+        //Start at 1 to skip the column header line
+        for(int i = 1; i < users.size(); i++){
             //add a new user from the String of information to the Dictionary
             String[] temp = users.get(i).split(","); 
             //use tempUsername to hold the username value and then use it as the dictionary key when the User object is added with the put() method
             String tempUsername = temp[6];
+            usernamesInOrdeArrayList.add(tempUsername);
             userDictionary.put(tempUsername, new User(Integer.parseInt(temp[0]), temp[1], temp[2], Double.parseDouble(temp[3]), Integer.parseInt(temp[4]), Boolean.parseBoolean(temp[5]), temp[6], temp[7]));
         }
     }
@@ -557,7 +566,26 @@ import java.util.Scanner;
      * with the updated values that were generated while the program was running.
      */
     private static void updateData(){
-        System.out.println("updateData");
+        //Writer fileWriter = new FileWriter("c:\\data\\output.txt", true);  //appends to file
+        //Writer fileWriter = new FileWriter("c:\\data\\output.txt", false); //overwrites file
+        try{
+            FileWriter carsFileWriter = new FileWriter("car_data",false);//Overwrites file
+            carsFileWriter.write(carsDataHeader + "\n");
+            for(int i = 0; i < carsArray.size(); i++){
+                carsFileWriter.write(carsArray.get(i).toString() + "\n");
+            }
+            carsFileWriter.close();
+            FileWriter userFileWriter = new FileWriter("user_data",false);//Overwrites file
+            userFileWriter.write(userDataHeader + "\n");
+            for(int i = 0; i < usernamesInOrdeArrayList.size(); i++){
+                //use the arraylist of Usernames in order to pull the users in order to write over the file.
+                userFileWriter.write(userDictionary.get(usernamesInOrdeArrayList.get(i)).toString() + "\n");
+            }
+            userFileWriter.close();
+        }
+        catch(Exception e){
+			e.printStackTrace();
+        }
         logsLinkedList.add(new Log("","Data updated."));
     }
 }
