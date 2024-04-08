@@ -71,11 +71,18 @@ import java.util.Scanner;
         updateData();
         logsLinkedList.add(new Log("","Shop closed."));
         System.out.println("Thank you for using Mine Cars Dealership System. Have a good day!");
-        System.out.println("Logs:");
-        for (int i = 0; i < logsLinkedList.size(); i++){
-            System.out.println(logsLinkedList.get(i).toString());
+        //Write logmessages to file to record and then close out program
+        try{
+            FileWriter logFileWriter = new FileWriter("Log.txt",true);//appends to file
+            for(int i = 0; i < logsLinkedList.size(); i++){
+                logFileWriter.write(logsLinkedList.get(i).toString() + "\n");
+            }
+            logFileWriter.write("\n");
+            logFileWriter.close();
         }
-        System.out.println("");
+        catch(Exception e){
+			e.printStackTrace();
+        }
     }
     
     /** 
@@ -261,11 +268,11 @@ import java.util.Scanner;
         boolean running = true;
         while(running){
             System.out.println("\nHello "+ user.getFirstName() + " " + user.getLastName() +", what would you like to do today?");
-            System.out.println(" 1) Display all cars.");
+            System.out.println(" 1) Display All Cars");
             System.out.println(" 2) Filter Cars");
-            System.out.println(" 3) Purchase a car");
+            System.out.println(" 3) Purchase a Car");
             System.out.println(" 4) View Tickets");
-            System.out.println(" 5) Sign out");
+            System.out.println(" 5) Sign Out");
             int input = readUserChoice();
             switch (input) {
                 case 1:
@@ -562,12 +569,10 @@ import java.util.Scanner;
     }
 
     /**
-     * Runs when the program is exited to overwrite the car_data and user_data.
+     * Runs when the program is expected to overwrite the car_data and user_data.
      * with the updated values that were generated while the program was running.
      */
     private static void updateData(){
-        //Writer fileWriter = new FileWriter("c:\\data\\output.txt", true);  //appends to file
-        //Writer fileWriter = new FileWriter("c:\\data\\output.txt", false); //overwrites file
         try{
             FileWriter carsFileWriter = new FileWriter("car_data",false);//Overwrites file
             carsFileWriter.write(carsDataHeader + "\n");
